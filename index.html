@@ -1,0 +1,91 @@
+<html>
+    <html>
+    <head>
+        <title>Kanaboy 🔰📛</title>
+        <meta charset="UTF-8">
+        <meta name="author" content="Maxime Guiraud">
+        <meta name="description" content="Apprends tes kana facillement">
+        <link rel="icon" type="image/png" href="ressources/favicon.png" />
+        <!-- <base href="http://maximeguiraud.fr/"> -->
+        <style type="text/css">
+            /* reset */
+            html, body, div, span, applet, object, iframe,
+            h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+            a, abbr, acronym, address, big, cite, code,
+            del, dfn, em, img, ins, kbd, q, s, samp,
+            small, strike, strong, sub, sup, tt, var,
+            b, u, i, center,
+            dl, dt, dd, ol, ul, li,
+            fieldset, form, label, legend,
+            table, caption, tbody, tfoot, thead, tr, th, td,
+            article, aside, canvas, details, embed, 
+            figure, figcaption, footer, header, hgroup, 
+            menu, nav, output, ruby, section, summary,
+            time, mark, audio, video {
+                margin: 0;
+                padding: 0;
+                border: 0;
+                font-size: 100%;
+                font: inherit;
+                vertical-align: baseline;
+            }
+            /* ------ */
+            @font-face {
+                font-family: "Mochiy Pop P One";
+                src: url("ressources/fonts/MochiyPopPOne-Regular.ttf") format("ttf");
+            }
+
+            body{
+                font-family: 'Mochiy Pop P One', sans-serif;
+                background-color: #071821;
+                color: #86c06c;
+                font-size: 20px;
+            }
+            h1{
+                text-align: center;
+                margin-top: 42px;
+                font-size: 42px;
+            }
+            #gamescreen{
+                margin: 7% auto;
+                width: 480px;
+                height: 432px;
+                background-image: url("ressources/background/menu.png");
+                border: 20px ridge #86c06c;
+                text-align: center;
+            }
+            #gameinput{
+                text-align: left;
+            }
+            #kana_list{
+                margin-top: 270px;
+                margin-left: 60px;
+            }
+            .menu:hover{
+               cursor: pointer; 
+               text-decoration: underline;
+            }
+            .quiz{
+                background-image: url("ressources/background/kana_test_neutral.png");
+            }
+            .quiz_true{
+                background-image: url("ressources/background/kana_test_correct.png");
+            }
+            .quiz_false{
+                background-image: url("ressources/background/kana_test_false.png");
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Kanaboy 📛かなぼ</h1>
+        <div id="gamescreen">
+            <div id="gameinput">
+                <ul id="kana_list">
+                    <li id="hiragana_menu"><span class="menu">Hiragana</span></li>
+                    <li id="katakana_menu"><span class="menu">Katakana</span></li>
+                </ul>
+            </div>
+        </div>
+    </body>
+    <script src="scripts/kanaboy.js"></script>
+</html>
