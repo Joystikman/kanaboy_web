@@ -1,7 +1,7 @@
 <html>
     <html>
     <head>
-        <title>Kanaboy 🔰📛</title>
+        <title>Kanaboy 📛</title>
         <meta charset="UTF-8">
         <meta name="author" content="Maxime Guiraud">
         <meta name="description" content="Apprends tes kana facillement">
@@ -45,8 +45,10 @@
                 text-align: center;
                 margin-top: 42px;
                 font-size: 42px;
+                font-weight: bold;
             }
-            #gamescreen{
+            /****************** GAME STYLE *******************/
+            .gamescreen{
                 margin: 7% auto;
                 width: 480px;
                 height: 432px;
@@ -57,7 +59,7 @@
             #gameinput{
                 text-align: left;
             }
-            #kana_list{
+            .menu_list{
                 margin-top: 270px;
                 margin-left: 60px;
             }
@@ -65,26 +67,67 @@
                cursor: pointer; 
                text-decoration: underline;
             }
+            /* TEST DE KANA */
             .quiz{
                 background-image: url("ressources/background/kana_test_neutral.png");
             }
-            .quiz_true{
+            .quiz_correct{
                 background-image: url("ressources/background/kana_test_correct.png");
             }
             .quiz_false{
                 background-image: url("ressources/background/kana_test_false.png");
             }
+            #gamequestion{
+                text-align: left;
+                height: 150px;
+            }
+            #gamequestion p{
+                position: relative;
+                margin: 128px 0px 0px 208px;
+                font-size: 45px;
+                font-weight: bold;
+            }
+            #gamequestion h3{
+                position: relative;
+                margin-top: 20px
+            }
+            #gameform{
+                text-align: center;
+            }
+            #gameform input{
+                margin: 3px;
+                border-radius: 2px;
+                border : solid 4px #071821;
+                font-weight: bold;
+            }
+            .score{
+                background-image: none;
+                background-color: #071821;
+            }
+            #scoreScreen{
+                margin-top: 150px;
+                font-weight: bold;
+            }
+            #scoreScreen button{
+                margin : 20px;
+                padding: 5px;
+                border-radius: 5px;
+                border : solid 4px #86c06c;
+                background-color : #e0f8cf;
+                font-weight: bold;
+                color : #071821 
+            }
+            /* PHONE */
+            @media screen and (max-width: 815px){
+                .gamescreen{
+                    margin: 10px auto;
+                }
+            }
         </style>
     </head>
     <body>
-        <h1>Kanaboy 📛かなぼ</h1>
-        <div id="gamescreen">
-            <div id="gameinput">
-                <ul id="kana_list">
-                    <li id="hiragana_menu"><span class="menu">Hiragana</span></li>
-                    <li id="katakana_menu"><span class="menu">Katakana</span></li>
-                </ul>
-            </div>
+        <h1>KANABOY 📛</h1>
+        <div id="gamescreen" class="gamescreen">
         </div>
     </body>
     <script src="scripts/kanaboy.js"></script>

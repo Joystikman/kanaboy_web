@@ -24,7 +24,7 @@ function shuffle(array) {
 }
 
 //dict
-var hiragana = [
+const hiragana_dict = [
     {key:"a",value:"あ"},
     {key:"i",value:"い"},
     {key:"u",value:"う"},
@@ -39,9 +39,8 @@ var hiragana = [
 
 //init HTML element
 var gamescreen = document.getElementById("gamescreen");
-var gameinput = document.getElementById("gameinput");
-var katakana_menu = document.getElementById("katakana_menu");
-var katakana_menu = document.getElementById("katakana_menu");
+/* var katakana_menu = document.getElementById("katakana_menu");
+var katakana_menu = document.getElementById("katakana_menu"); */
 
 //variables
 var testLength = 0;
@@ -50,12 +49,37 @@ var kanaDiv = null;
 var kanaTested = "";
 
 //data
-var testStats = [];
+var testStats = {
+    serie5 : [],
+    serie10 : [],
+    serie20 : [],
+};
 var correctAnswer = 0;
 
 //actions
-hiragana_menu.onclick = displayTestLengthMenu;
-katakana_menu.onclick = displayTestLengthMenu;
+function setMenu(){
+    gamescreen.innerHTML = "";
+    gamescreen.className = "gamescreen";
+    let gameinput = createNode("div");
+    gameinput.id = "gameinput";
+    let list = createNode("ul");
+    list.id = "kana_list";
+    list.className = "menu_list";
+    let hiragana = createNode("li");
+    hiragana.id = "hiragana_menu";
+    let katakana = createNode("li");
+    katakana.id = "katakana_menu";
+    hiragana.innerHTML = "Hiragana";
+    hiragana.className = "menu";
+    katakana.innerHTML = "Katakana";
+    katakana.className = "menu";
+    hiragana.onclick = displayTestLengthMenu;
+    katakana.onclick = displayTestLengthMenu;
+    append(list,hiragana);
+    append(list,katakana);
+    append(gameinput,list);
+    append(gamescreen,gameinput);
+}
 
 function displayTestLengthMenu(){
     if (this.id === "hiragana_menu"){kanaTested = "hiragana"}
@@ -64,21 +88,27 @@ function displayTestLengthMenu(){
     gamescreen.innerHTML = "";
     let gameinput = createNode("div");
     gameinput.id = "gameinput";
-    let fiveKana = createNode("div");
+    let list = createNode("ul");
+    list.className = "menu_list";
+    let fiveKana = createNode("li");
     fiveKana.id = 5;
-    let tenKana = createNode("div");
+    fiveKana.className = "menu";
+    let tenKana = createNode("li");
     tenKana.id = 10;
-    let twentyKana = createNode("div");
+    tenKana.className = "menu";
+    let twentyKana = createNode("li");
     twentyKana.id = 20;
-    fiveKana.innerHTML = "● 5 Kana";
-    tenKana.innerHTML = "● 10 Kana";
-    twentyKana.innerHTML = "● 20 Kana";
+    twentyKana.className = "menu";
+    fiveKana.innerHTML = "5 Kana";
+    tenKana.innerHTML = "10 Kana";
+    twentyKana.innerHTML = "20 Kana";
     fiveKana.onclick = setTestLength;
     tenKana.onclick = setTestLength;
     twentyKana.onclick = setTestLength;
-    append(gameinput,fiveKana);
-    append(gameinput,tenKana);
-    append(gameinput,twentyKana);
+    append(list,fiveKana);
+    append(list,tenKana);
+    append(list,twentyKana);
+    append(gameinput,list);
     append(gamescreen,gameinput);
 }
 
@@ -91,17 +121,20 @@ function setTestLength(){
 function initQuizz(){
     console.log(kanaTested);
     gamescreen.innerHTML = "";
-    gamescreen.className = "quiz"
     questions = [];
     if (kanaTested === "hiragana"){
-        tempList = hiragana;
+        tempList = JSON.parse(JSON.stringify(hiragana_dict));
         shuffle(tempList);
         console.log(tempList);
         for (let index = 0; index < testLength; index++) {
             questions.push(tempList.pop());
         }
     }
-    if (kanaTested === "katakana"){}
+    if (kanaTested === "katakana"){
+        alert("Cet option n'est pas encore disponible");
+        reset();
+        setMenu();
+    }
     console.log(questions);
     //display element
     let gamequestion = createNode("div");
@@ -109,8 +142,8 @@ function initQuizz(){
     kanaDiv = createNode("p");
     kanaDiv.id="kana";
     append(gamequestion,kanaDiv);
-    let gameinput = createNode("div");
-    gameinput.id = "gameinput";
+    let gameForm = createNode("div");
+    gameForm.id = "gameform";
     let validationForm = createNode("form");
     validationForm.id = "validationForm";
     validationForm.onsubmit = validAnswer;
@@ -123,23 +156,23 @@ function initQuizz(){
     submitForm.value = "Valider";
     append(validationForm,inputForm);
     append(validationForm,submitForm);
-    append(gameinput,validationForm);
+    append(gameForm,validationForm);
     append(gamescreen,gamequestion);
-    append(gamescreen,gameinput);
+    append(gamescreen,gameForm);
     nextQuestion();
 }
 
 function nextQuestion(){
+    gamescreen.className = "gamescreen quiz";
     try {
         kanaTested = questions.pop();
         kanaDiv.innerHTML = kanaTested.value;
     } catch (error) {
-        console.log("test complete");
-        console.log("correct answer :"+correctAnswer);
+        testEnd();
     }
 }
 
-function validAnswer(e){
+async function validAnswer(e){
     e.preventDefault();
     console.log("Validation");
     let vForm = document.getElementById("validationForm");
@@ -148,9 +181,16 @@ function validAnswer(e){
     if (answer === kanaTested.key){
         console.log("CORRECT");
         correctAnswer++;
+        gamescreen.className = "gamescreen quiz_correct";
+        await new Promise(r => setTimeout(r, 1000));
     }
     else{
         console.log("FALSE");
+        let romaji = createNode("h3");
+        gamescreen.className = "gamescreen quiz_false";
+        romaji.innerHTML = kanaTested.key;
+        append(kanaDiv,romaji);
+        await new Promise(r => setTimeout(r, 2000));
     }
     //reset form
     vForm.innerHTML = "";
@@ -165,3 +205,35 @@ function validAnswer(e){
     append(vForm,submitForm);
     nextQuestion()
 }
+
+function testEnd(){
+    console.log("test complete");
+    console.log("correct answer :"+correctAnswer);
+    if (testLength == 5) {
+        testStats.serie5.push({date:new Date(), score: correctAnswer});
+    }
+    console.log(testStats);
+    gamescreen.innerHTML = "";
+    gamescreen.className = "gamescreen score";
+    let scoreScreen = createNode("div");
+    scoreScreen.id = "scoreScreen";
+    let score = createNode("h2");
+    score.innerHTML = "Ton score est de : "+correctAnswer+" bonne(s) réponse(s) !";
+    let back = createNode("button");
+    back.innerHTML = "retourner au menu";
+    back.onclick = setMenu;
+    reset();
+    append(scoreScreen,score);
+    append(scoreScreen,back);
+    append(gamescreen,scoreScreen);
+}
+
+function reset(){
+    console.log("RESET");
+    correctAnswer = 0;
+    console.log(hiragana_dict);
+}
+
+/* On load  */
+
+window.onload = setMenu;
