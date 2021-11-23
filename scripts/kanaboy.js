@@ -176,7 +176,7 @@ async function validAnswer(e){
     e.preventDefault();
     console.log("Validation");
     let vForm = document.getElementById("validationForm");
-    let answer = document.getElementById("answer").value;
+    let answer = document.getElementById("answer").value.toLowerCase();
     console.log(answer);
     if (answer === kanaTested.key){
         console.log("CORRECT");
