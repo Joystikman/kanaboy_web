@@ -5,8 +5,12 @@
         <meta charset="UTF-8">
         <meta name="author" content="Maxime Guiraud">
         <meta name="description" content="Apprends tes kana facillement">
-        <link rel="icon" type="image/png" href="ressources/favicon.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <!-- <link rel="icon" type="image/png" href="ressources/favicon.png" /> -->
         <!-- <base href="http://maximeguiraud.fr/"> -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap" rel="stylesheet"> 
         <style type="text/css">
             /* reset */
             html, body, div, span, applet, object, iframe,
@@ -30,11 +34,6 @@
                 vertical-align: baseline;
             }
             /* ------ */
-            @font-face {
-                font-family: "Mochiy Pop P One";
-                src: url("ressources/fonts/MochiyPopPOne-Regular.ttf") format("ttf");
-            }
-
             body{
                 font-family: 'Mochiy Pop P One', sans-serif;
                 background-color: #071821;
@@ -48,16 +47,12 @@
                 font-weight: bold;
             }
             /****************** GAME STYLE *******************/
-            /* PHONE */
-            @media screen and (max-width: 815px){
-                .gamescreen{
-                    margin: 10px auto;
-                }
-            }
             .gamescreen{
                 margin: 7% auto;
                 width: 480px;
                 height: 432px;
+                background-clip: padding-box;
+                background-size: 100%;
                 background-image: url("ressources/background/menu.png");
                 border: 20px ridge #86c06c;
                 text-align: center;
@@ -121,7 +116,36 @@
                 border : solid 4px #86c06c;
                 background-color : #e0f8cf;
                 font-weight: bold;
-                color : #071821 
+                color : #071821; 
+            }
+            /* PHONE */
+            @media only screen and (max-width: 820px){
+                .gamescreen{
+                    margin: 1% auto;
+                    width: 355px;
+                    height: 320px;
+                    border: 10px ridge #86c06c;
+                }
+                .menu_list{
+                    margin-top: 200px;
+                }
+                #gamequestion{
+                    text-align: left;
+                    height: 120px;
+                }
+                #gamequestion p{
+                    position: relative;
+                    margin: 96px 0px 0px 151px;
+                    font-size: 35px;
+                    font-weight: bold;
+                }
+                #gamequestion h3{
+                    position: relative;
+                    margin-top: 15px;
+                    margin-left: 5px;
+                    color : #071821; 
+                    text-decoration: underline;
+                }
             }
         </style>
     </head>
