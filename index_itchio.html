@@ -123,36 +123,13 @@
                 font-weight: bold;
                 color : #071821; 
             }
-            #description{
-                margin: 0% auto;
-                padding: 20px;
-                width: 500px;
-                border: solid 12px #86c06c;
-                font-weight: bold;
-                color: #306850;
-                background-color : #e0f8cf;
-            }
-            footer{
-                position: fixed;
-                left: 0;
-                bottom: 0;
-                width: 100%;
-                padding: 12px;
-                text-align: center;
-                background-color: #306850;
-                color: #e0f8cf;
-            }
-            footer a{
-                text-decoration: none;
-                color: #e0f8cf;
-            }
             /* PHONE */
             @media only screen and (max-width: 820px){
                 body{
                     font-size: 12px;
                 }
                 .gamescreen{
-                    margin: 1% auto;
+                    margin: 50px auto;
                     width: 355px;
                     height: 320px;
                     border: 10px ridge #86c06c;
@@ -173,20 +150,11 @@
                 #gamequestion h3{
                     margin-top: 15px;
                 }
-                #description{
-                    margin: 15px auto;
-                    padding: 14px;
-                    width: 300px;
-                }
             }
         </style>
     </head>
     <body>
         <div id="gamescreen" class="gamescreen"></div>
-        <div id="description">
-            <p>Kanaboy est un petit quiz qui vous permettra de tester votre connaissance des 208 kanas utilisés en Japonais 📛</p>
-        </div>
-        <footer>par <a href="http://twitter.com/joystikman" target="_blank" rel="noopener noreferrer">Maxime Guiraud - @Joystikman</a></footer>
     </body>
     <script src="scripts/kanaboy.js"></script>
 </html>
