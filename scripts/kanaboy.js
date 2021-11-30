@@ -24,6 +24,7 @@ function shuffle(array) {
 }
 
 //dict
+  //HIRAGANA
 const hiragana_dict = [
     {key:"a",value:"あ"},{key:"i",value:"い"},{key:"u",value:"う"},{key:"e",value:"え"},{key:"o",value:"お"},
     {key:"ka",value:"か"},{key:"ki",value:"き"},{key:"ku",value:"く"},{key:"ke",value:"け"},{key:"ko",value:"こ"},
@@ -60,8 +61,78 @@ const hiragana_complet_dict = [
     {key:"nya",value:"にゃ"},{key:"nyu",value:"にゅ"},{key:"nyo",value:"にょ"},
     {key:"hya",value:"ひゃ"},{key:"hyu",value:"ひゅ"},{key:"hyo",value:"ひょ"},
     {key:"mya",value:"みゃ"},{key:"myu",value:"みゅ"},{key:"myo",value:"みょ"},
-    {key:"rya",value:"りあ"},{key:"ryu",value:"りゅ"},{key:"ryo",value:"りょ"},
+    {key:"rya",value:"りゃ"},{key:"ryu",value:"りゅ"},{key:"ryo",value:"りょ"},
+
+    {key:"gya",value:"ギや"},{key:"gyu",value:"ギゆ"},{key:"gyo",value:"ギよ"},
+    {key:"ja",value:"じや"},{key:"ju",value:"じゆ"},{key:"jo",value:"じよ"},
+    {key:"bya",value:"びや"},{key:"byu",value:"びゆ"},{key:"byo",value:"びよ"},
+    {key:"pya",value:"ぴや"},{key:"pyu",value:"ぴゆ"},{key:"pyo",value:"ぴよ"},
 ];
+  //KATAKANA
+  const katakana_dict = [
+    {key:"a",value:"ア"},{key:"i",value:"イ"},{key:"u",value:"ウ"},{key:"e",value:"エ"},{key:"o",value:"オ"},
+    {key:"ka",value:"カ"},{key:"ki",value:"キ"},{key:"ku",value:"ク"},{key:"ke",value:"ケ"},{key:"ko",value:"コ"},
+    {key:"sa",value:"サ"},{key:"shi",value:"シ"},{key:"su",value:"ス"},{key:"se",value:"セ"},{key:"so",value:"ソ"},
+    {key:"ta",value:"タ"},{key:"chi",value:"チ"},{key:"tsu",value:"ツ"},{key:"te",value:"テ"},{key:"to",value:"ト"},
+    {key:"na",value:"ナ"},{key:"ni",value:"ニ"},{key:"nu",value:"ヌ"},{key:"ne",value:"ネ"},{key:"no",value:"ノ"},
+    {key:"ha",value:"ハ"},{key:"hi",value:"ヒ"},{key:"fu",value:"フ"},{key:"he",value:"ヘ"},{key:"ho",value:"ホ"},
+    {key:"ma",value:"マ"},{key:"mi",value:"ミ"},{key:"mu",value:"ム"},{key:"me",value:"メ"},{key:"mo",value:"モ"},
+    {key:"ya",value:"ヤ"},{key:"yu",value:"ユ"},{key:"yo",value:"ヨ"},
+    {key:"ra",value:"ラ"},{key:"ri",value:"リ"},{key:"ru",value:"ル"},{key:"re",value:"レ"},{key:"ro",value:"ロ"},
+    {key:"wa",value:"ワ"},{key:"o",value:"ヲ"},
+    {key:"n",value:"ン"},
+];
+const katakana_complet_dict = [
+    {key:"a",value:"ア"},{key:"i",value:"イ"},{key:"u",value:"ウ"},{key:"e",value:"エ"},{key:"o",value:"オ"},
+    {key:"ka",value:"カ"},{key:"ki",value:"キ"},{key:"ku",value:"ク"},{key:"ke",value:"ケ"},{key:"ko",value:"コ"},
+    {key:"sa",value:"サ"},{key:"shi",value:"シ"},{key:"su",value:"ス"},{key:"se",value:"セ"},{key:"so",value:"ソ"},
+    {key:"ta",value:"タ"},{key:"chi",value:"チ"},{key:"tsu",value:"ツ"},{key:"te",value:"テ"},{key:"to",value:"ト"},
+    {key:"na",value:"ナ"},{key:"ni",value:"ニ"},{key:"nu",value:"ヌ"},{key:"ne",value:"ネ"},{key:"no",value:"ノ"},
+    {key:"ha",value:"ハ"},{key:"hi",value:"ヒ"},{key:"fu",value:"フ"},{key:"he",value:"ヘ"},{key:"ho",value:"ホ"},
+    {key:"ma",value:"マ"},{key:"mi",value:"ミ"},{key:"mu",value:"ム"},{key:"me",value:"メ"},{key:"mo",value:"モ"},
+    {key:"ya",value:"ヤ"},{key:"yu",value:"ユ"},{key:"yo",value:"ヨ"},
+    {key:"ra",value:"ラ"},{key:"ri",value:"リ"},{key:"ru",value:"ル"},{key:"re",value:"レ"},{key:"ro",value:"ロ"},
+    {key:"wa",value:"ワ"},{key:"o",value:"ヲ"},
+    {key:"n",value:"ン"},
+    {key:"ga",value:"ガ"},{key:"gi",value:"ギ"},{key:"gu",value:"グ"},{key:"ge",value:"ゲ"},{key:"go",value:"ゴ"},
+    {key:"za",value:"ザ"},{key:"ji",value:"ジ"},{key:"zu",value:"ズ"},{key:"ze",value:"ゼ"},{key:"zo",value:"ゾ"},
+    {key:"da",value:"ダ"},{key:"ji",value:"ヂ"},{key:"zu",value:"ヅ"},{key:"de",value:"デ"},{key:"do",value:"ド"},
+    {key:"ba",value:"バ"},{key:"bi",value:"ビ"},{key:"bu",value:"ブ"},{key:"be",value:"ベ"},{key:"bo",value:"ボ"},
+    {key:"pa",value:"パ"},{key:"pi",value:"ピ"},{key:"pu",value:"プ"},{key:"pe",value:"ペ"},{key:"po",value:"ポ"},
+    {key:"kya",value:"キヤ"},{key:"kyu",value:"キユ"},{key:"kyo",value:"キヨ"},
+    {key:"sha",value:"シヤ"},{key:"shu",value:"シユ"},{key:"sho",value:"シヨ"},
+    {key:"cha",value:"チヤ"},{key:"chu",value:"チユ"},{key:"cho",value:"チヨ"},
+    {key:"nya",value:"ニヤ"},{key:"nyu",value:"ニユ"},{key:"nyo",value:"ニヨ"},
+    {key:"hya",value:"ヒヤ"},{key:"hyu",value:"ヒユ"},{key:"hyo",value:"ヒヨ"},
+    {key:"mya",value:"ミヤ"},{key:"myu",value:"ミユ"},{key:"myo",value:"ミヨ"},
+    {key:"rya",value:"リヤ"},{key:"ryu",value:"リユ"},{key:"ryo",value:"リヨ"},
+    {key:"gya",value:"ギヤ"},{key:"gyu",value:"ギユ"},{key:"gyo",value:"ギヨ"},
+    {key:"ja",value:"ジヤ"},{key:"ju",value:"ジユ"},{key:"jo",value:"ジヨ"},
+    {key:"bya",value:"ビヤ"},{key:"byu",value:"ビユ"},{key:"byo",value:"ビヨ"},
+    {key:"pya",value:"ピヤ"},{key:"pyu",value:"ピユ"},{key:"pyo",value:"ピヨ"},
+];
+
+//TEXTS
+const txt = {
+    main_menu : {
+        hiragana46 : "HIRAGANA (46 Kanas)",
+        hiragana104 : "HIRAGANA (104 Kanas)",
+        katakana46 : "KATAKANA (46 Kanas)",
+        katakana104 : "KATAKANA (104 Kanas)"
+    },
+    quizz_length : {
+        a : {number : 5, value : "5 KANAS"},
+        b : {number : 10, value : "10 KANAS"},
+        c : {number : 20, value : "20 KANAS"}
+    },
+    form : {
+        valid_value : "valider"
+    },
+    test_end : {
+        score_value : "Bonne(s) réponse(s) : ",
+        home : "Retourner au menu"
+    }
+}
 
 //init HTML element
 var gamescreen = document.getElementById("gamescreen");
@@ -71,6 +142,7 @@ var testLength = 0;
 var questions = null;
 var kanaDiv = null;
 var kanaTested = "";
+var correctAnswer = 0;
 
 //data
 var testStats = {
@@ -78,9 +150,9 @@ var testStats = {
     serie10 : [],
     serie20 : [],
 };
-var correctAnswer = 0;
 
 //actions
+  //display menu
 function setMenu(){
     gamescreen.innerHTML = "";
     gamescreen.className = "gamescreen";
@@ -93,66 +165,80 @@ function setMenu(){
     let hiragana = createNode("li");
     hiragana.id = "hiragana_menu";
     hiragana.className = "menu";
-    hiragana.innerHTML = "Hiragana (46 kanas)";
+    hiragana.innerHTML = txt.main_menu.hiragana46;
     hiragana.onclick = displayTestLengthMenu;
     /* menu hiragana (complet) */
     let hiragana_complet = createNode("li");
     hiragana_complet.id = "hiragana_complet_menu";
     hiragana_complet.className = "menu";
-    hiragana_complet.innerHTML = "Hiragana (104 kanas)";
+    hiragana_complet.innerHTML = txt.main_menu.hiragana104;
     hiragana_complet.onclick = displayTestLengthMenu;
     /* menu katakana (46) */
     let katakana = createNode("li");
     katakana.id = "katakana_menu";
     katakana.className = "menu";
-    katakana.innerHTML = "Katakana";
+    katakana.innerHTML = txt.main_menu.katakana46;
     katakana.onclick = displayTestLengthMenu;
+    /* menu katakana (complet) */
+    let katakana_complet = createNode("li");
+    katakana_complet.id = "katakana_complet_menu";
+    katakana_complet.className = "menu";
+    katakana_complet.innerHTML = txt.main_menu.katakana104;
+    katakana_complet.onclick = displayTestLengthMenu;
     /* add to menu list */
     append(list,hiragana);
     append(list,hiragana_complet);
     append(list,katakana);
+    append(list,katakana_complet);
     append(gameinput,list);
     append(gamescreen,gameinput);
 }
 
+  //display number of questions to be tested on
 function displayTestLengthMenu(){
     if (this.id === "hiragana_menu"){kanaTested = "hiragana"}
     if (this.id === "hiragana_complet_menu"){kanaTested = "hiragana_complet"}
     if (this.id === "katakana_menu"){kanaTested = "katakana"}
+    if (this.id === "katakana_complet_menu"){kanaTested = "katakana_complet"}
     console.log("click");
     gamescreen.innerHTML = "";
     let gameinput = createNode("div");
     gameinput.id = "gameinput";
     let list = createNode("ul");
     list.className = "menu_list";
-    let fiveKana = createNode("li");
-    fiveKana.id = 5;
-    fiveKana.className = "menu";
-    let tenKana = createNode("li");
-    tenKana.id = 10;
-    tenKana.className = "menu";
-    let twentyKana = createNode("li");
-    twentyKana.id = 20;
-    twentyKana.className = "menu";
-    fiveKana.innerHTML = "5 Kana";
-    tenKana.innerHTML = "10 Kana";
-    twentyKana.innerHTML = "20 Kana";
-    fiveKana.onclick = setTestLength;
-    tenKana.onclick = setTestLength;
-    twentyKana.onclick = setTestLength;
-    append(list,fiveKana);
-    append(list,tenKana);
-    append(list,twentyKana);
+    //choice A
+    let choiceA = createNode("li");
+    choiceA.id = txt.quizz_length.a.number;
+    choiceA.className = "menu";
+    choiceA.innerHTML = txt.quizz_length.a.value;
+    choiceA.onclick = setTestLength;
+    //choice B
+    let choiceB = createNode("li");
+    choiceB.id = txt.quizz_length.b.number;
+    choiceB.className = "menu";
+    choiceB.innerHTML = txt.quizz_length.b.value;
+    choiceB.onclick = setTestLength;
+    //choice C
+    let choiceC = createNode("li");
+    choiceC.id = txt.quizz_length.c.number;
+    choiceC.className = "menu";
+    choiceC.innerHTML = txt.quizz_length.c.value;
+    choiceC.onclick = setTestLength;
+    append(list,choiceA);
+    append(list,choiceB);
+    append(list,choiceC);
     append(gameinput,list);
     append(gamescreen,gameinput);
 }
 
+  //save the number of question
 function setTestLength(){
     testLength = this.id
     console.log("TEST LENGTH :"+testLength);
     initQuizz();
 }
 
+  //start the quizz
 function initQuizz(){
     console.log(kanaTested);
     gamescreen.innerHTML = "";
@@ -174,9 +260,20 @@ function initQuizz(){
         }
     }
     if (kanaTested === "katakana"){
-        alert("Cet option n'est pas encore disponible");
-        reset();
-        setMenu();
+        tempList = JSON.parse(JSON.stringify(katakana_dict));
+        shuffle(tempList);
+        console.log(tempList);
+        for (let index = 0; index < testLength; index++) {
+            questions.push(tempList.pop());
+        }
+    }
+    if (kanaTested === "katakana_complet"){
+        tempList = JSON.parse(JSON.stringify(katakana_complet_dict));
+        shuffle(tempList);
+        console.log(tempList);
+        for (let index = 0; index < testLength; index++) {
+            questions.push(tempList.pop());
+        }
     }
     console.log(questions);
     //display element
@@ -196,7 +293,7 @@ function initQuizz(){
     let submitForm = createNode("input");
     submitForm.type = "submit";
     /* submitForm.onclick = validAnswer */;
-    submitForm.value = "Valider";
+    submitForm.value = txt.form.valid_value;
     append(validationForm,inputForm);
     append(validationForm,submitForm);
     append(gameForm,validationForm);
@@ -205,6 +302,7 @@ function initQuizz(){
     nextQuestion();
 }
 
+  //display the following question
 function nextQuestion(){
     gamescreen.className = "gamescreen quiz";
     try {
@@ -215,6 +313,7 @@ function nextQuestion(){
     }
 }
 
+  //check the answer entered
 async function validAnswer(e){
     e.preventDefault();
     console.log("Validation");
@@ -236,19 +335,20 @@ async function validAnswer(e){
         await new Promise(r => setTimeout(r, 2000));
     }
     //reset form
-    vForm.innerHTML = "";
+    /* vForm.innerHTML = "";
     let inputForm = createNode("input");
     inputForm.type = "text";
     inputForm.id = "answer";
     let submitForm = createNode("input");
     submitForm.type = "submit";
-    /* submitForm.onclick = validAnswer */;
-    submitForm.value = "Valider";
-    append(vForm,inputForm);
-    append(vForm,submitForm);
+    submitForm.value = "Valider";*/
+    document.getElementById("answer").value = "";
+    /* append(vForm,inputForm);
+    append(vForm,submitForm); */
     nextQuestion()
 }
 
+  //end the test
 function testEnd(){
     console.log("test complete");
     console.log("correct answer :"+correctAnswer);
@@ -267,9 +367,9 @@ function testEnd(){
     let scoreScreen = createNode("div");
     scoreScreen.id = "scoreScreen";
     let score = createNode("h2");
-    score.innerHTML = "Ton score est de : "+correctAnswer+" bonne(s) réponse(s) !";
+    score.innerHTML = txt.test_end.score_value+correctAnswer;
     let back = createNode("button");
-    back.innerHTML = "retourner au menu";
+    back.innerHTML = txt.test_end.home;
     back.onclick = setMenu;
     reset();
     append(scoreScreen,score);
@@ -277,10 +377,14 @@ function testEnd(){
     append(gamescreen,scoreScreen);
 }
 
+  //reset variables
 function reset(){
     console.log("RESET");
+    testLength = 0;
+    questions = null;
+    kanaDiv = null;
+    kanaTested = "";
     correctAnswer = 0;
-    console.log(hiragana_dict);
 }
 
 /* On load  */
