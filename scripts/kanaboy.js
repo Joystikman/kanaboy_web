@@ -118,15 +118,22 @@ const txt = {
         hiragana46 : "HIRAGANA (46 Kanas)",
         hiragana104 : "HIRAGANA (104 Kanas)",
         katakana46 : "KATAKANA (46 Kanas)",
-        katakana104 : "KATAKANA (104 Kanas)"
+        katakana104 : "KATAKANA (104 Kanas)",
+        memory_mode : "enable memory mode",
+        memory_mode_tooltip : "If enable, before each quizz, the kana that will be present in the serie are displayed to let you memorize its"
     },
     quizz_length : {
         a : {number : 5, value : "5 KANAS"},
         b : {number : 10, value : "10 KANAS"},
-        c : {number : 20, value : "20 KANAS"}
+        c : {number : 20, value : "20 KANAS"},
+        memory_mode_status : {
+            true : "Memory mode enable",
+            false : "Memory mode disable"
+        }
     },
     form : {
-        valid_value : "valider"
+        valid_value : "valider",
+        valid_memory : "kana suivant"
     },
     test_end : {
         score_value : "Bonne(s) réponse(s) : ",
@@ -143,6 +150,8 @@ var questions = null;
 var kanaDiv = null;
 var kanaTested = "";
 var correctAnswer = 0;
+var enableMemoryMode = false;
+var memoryKanaList = null;
 
 //data
 var testStats = {
@@ -185,13 +194,36 @@ function setMenu(){
     katakana_complet.className = "menu";
     katakana_complet.innerHTML = txt.main_menu.katakana104;
     katakana_complet.onclick = displayTestLengthMenu;
+    /* memory mode */
+    let memory_form = createNode("div");
+    memory_form.id = "memory_form";
+    memory_form.className = "memory_form";
+    let memory_checkbox = createNode("input");
+    memory_checkbox.id = "memory_checkbox";
+    memory_checkbox.type = "checkbox";
+    memory_checkbox.className = "";
+    memory_checkbox.onclick = setMemoryMode;
+    let memory_label = createNode("label");
+    memory_label.id = "memory_label";
+    memory_label.className = "";
+    memory_label.for = "memory_checkbox"
+    memory_label.innerHTML = txt.main_menu.memory_mode;
+    let memory_tooltip = createNode("span");
+    memory_tooltip.id = "memory_tooltip";
+    memory_tooltip.className = "";
+    memory_tooltip.innerHTML = "ℹ️";
+    memory_tooltip.onclick = displayTooltip;
     /* add to menu list */
+    append(memory_form,memory_checkbox);
+    append(memory_form,memory_label);
+    append(memory_form,memory_tooltip);
     append(list,hiragana);
     append(list,hiragana_complet);
     append(list,katakana);
     append(list,katakana_complet);
     append(gameinput,list);
     append(gamescreen,gameinput);
+    append(gamescreen,memory_form);
 }
 
   //display number of questions to be tested on
@@ -224,9 +256,16 @@ function displayTestLengthMenu(){
     choiceC.className = "menu";
     choiceC.innerHTML = txt.quizz_length.c.value;
     choiceC.onclick = setTestLength;
+    //memory mode status
+    let memory_mode_status = createNode("p");
+    memory_mode_status.id = "memory_mode_status";
+    memory_mode_status.className = "memory_status";
+    memory_mode_status.innerHTML = enableMemoryMode ? txt.quizz_length.memory_mode_status.true : txt.quizz_length.memory_mode_status.false;
+    /* add to menu list */
     append(list,choiceA);
     append(list,choiceB);
     append(list,choiceC);
+    append(list,memory_mode_status);
     append(gameinput,list);
     append(gamescreen,gameinput);
 }
@@ -235,13 +274,10 @@ function displayTestLengthMenu(){
 function setTestLength(){
     testLength = this.id
     console.log("TEST LENGTH :"+testLength);
-    initQuizz();
+    setTestQuestions();
 }
 
-  //start the quizz
-function initQuizz(){
-    console.log(kanaTested);
-    gamescreen.innerHTML = "";
+function setTestQuestions(){
     questions = [];
     if (kanaTested === "hiragana"){
         tempList = JSON.parse(JSON.stringify(hiragana_dict));
@@ -275,7 +311,23 @@ function initQuizz(){
             questions.push(tempList.pop());
         }
     }
+    if(enableMemoryMode){
+        memoryKanaList = [];
+        memoryKanaList = JSON.parse(JSON.stringify(questions));
+        shuffle(memoryKanaList);
+        initMemory();
+    }
+    else{
+        enableMemoryMode = false;
+        initQuizz();
+    }
+}
+
+  //start the quizz
+function initQuizz(){
+    console.log(kanaTested);
     console.log(questions);
+    gamescreen.innerHTML = "";
     //display element
     let gamequestion = createNode("div");
     gamequestion.id = "gamequestion";
@@ -292,7 +344,6 @@ function initQuizz(){
     inputForm.id = "answer";
     let submitForm = createNode("input");
     submitForm.type = "submit";
-    /* submitForm.onclick = validAnswer */;
     submitForm.value = txt.form.valid_value;
     append(validationForm,inputForm);
     append(validationForm,submitForm);
@@ -335,16 +386,7 @@ async function validAnswer(e){
         await new Promise(r => setTimeout(r, 2000));
     }
     //reset form
-    /* vForm.innerHTML = "";
-    let inputForm = createNode("input");
-    inputForm.type = "text";
-    inputForm.id = "answer";
-    let submitForm = createNode("input");
-    submitForm.type = "submit";
-    submitForm.value = "Valider";*/
     document.getElementById("answer").value = "";
-    /* append(vForm,inputForm);
-    append(vForm,submitForm); */
     nextQuestion()
 }
 
@@ -385,6 +427,62 @@ function reset(){
     kanaDiv = null;
     kanaTested = "";
     correctAnswer = 0;
+}
+
+// memory function
+function setMemoryMode(){
+    enableMemoryMode = !enableMemoryMode;
+}
+
+function displayTooltip(){
+    alert(txt.main_menu.memory_mode_tooltip);
+}
+
+function initMemory(){
+    console.log(kanaTested + " - memory mode");
+    console.log(questions);
+    gamescreen.innerHTML = "";
+    //display element
+    let gamequestion = createNode("div");
+    gamequestion.id = "gamequestion";
+    kanaDiv = createNode("p");
+    kanaDiv.id="kana";
+    append(gamequestion,kanaDiv);
+    let gameForm = createNode("div");
+    gameForm.id = "gameform";
+    let validationForm = createNode("form");
+    validationForm.id = "validationForm";
+    validationForm.onsubmit = validMemory;
+    let submitForm = createNode("input");
+    submitForm.type = "submit";
+    submitForm.value = txt.form.valid_memory;
+    append(validationForm,submitForm);
+    append(gameForm,validationForm);
+    append(gamescreen,gamequestion);
+    append(gamescreen,gameForm);
+    nextMemory();
+}
+
+//display the following memory
+function nextMemory(){
+    gamescreen.className = "gamescreen quiz";
+    try {
+        kanaMemorized = memoryKanaList.pop();
+        kanaDiv.innerHTML = kanaMemorized.value;
+        let romaji = createNode("h3");
+        romaji.innerHTML = kanaMemorized.key;
+        append(kanaDiv,romaji);
+    } catch (error) {
+        console.log("révisions terminées");
+        initQuizz();
+    }
+}
+
+  //check the answer entered
+  async function validMemory(e){
+    e.preventDefault();
+    console.log("validMemory");
+    nextMemory()
 }
 
 /* On load  */
