@@ -427,6 +427,7 @@ function reset(){
     kanaDiv = null;
     kanaTested = "";
     correctAnswer = 0;
+    enableMemoryMode = false;
 }
 
 // memory function
